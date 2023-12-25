@@ -28,7 +28,6 @@ func main() {
 
 		host, _, _ := net.SplitHostPort(r.RemoteAddr)
 
-		fmt.Println("HOSTIK", host)
 		r.Header.Set("X-Forwarded-For", host)
 
 		client := &http.Client{}
@@ -44,7 +43,6 @@ func main() {
 			}
 		}
 
-		fmt.Println(resp.Header.Get("Content-Type"))
 		w.Header().Set("Content-Type", resp.Header.Get("Content-Type"))
 		body, _ := ioutil.ReadAll(resp.Body)
 		w.Write(body)
