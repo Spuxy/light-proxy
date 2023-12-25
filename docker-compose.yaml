@@ -1,0 +1,33 @@
+version: '3'
+services:
+  backend:
+    container_name: backend-service
+    build:
+      dockerfile: backend-service.dockerfile
+      context: ./backend
+    ports:
+      - 8081:80
+    networks:
+      - backend
+  proxy:
+    container_name: proxy-service
+    build:
+      dockerfile: proxy-service.dockerfile
+      context: ./proxy
+    ports:
+      - 8080:8080
+    networks:
+      - backend
+  client:
+    container_name: client-service
+    build:
+      dockerfile: dockerfile
+      context: ./client
+    ports:
+      - 8082:8082
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
